@@ -1,0 +1,90 @@
+@baseUrl = http://localhost:8080
+
+### 1. Listar todas as musicas
+GET {{baseUrl}}/musicas
+
+### 2. Buscar musica por ID
+GET {{baseUrl}}/musicas/1
+
+### 3. Criar musica valida
+POST {{baseUrl}}/musicas
+Content-Type: application/json
+
+{
+  "titulo": "Hotel California",
+  "artista": "Eagles",
+  "album": "Hotel California",
+  "duracao": 391,
+  "genero": "Rock"
+}
+
+### 4. Testar validacao da musica - deve retornar HTTP 400
+POST {{baseUrl}}/musicas
+Content-Type: application/json
+
+{
+  "titulo": "   ",
+  "artista": "",
+  "album": null,
+  "duracao": 0,
+  "genero": "Rock"
+}
+
+### 5. Atualizar musica
+PUT {{baseUrl}}/musicas/1
+Content-Type: application/json
+
+{
+  "titulo": "Imagine - Remastered",
+  "artista": "John Lennon",
+  "album": "Imagine",
+  "duracao": 183,
+  "genero": "Rock"
+}
+
+### 6. Criar playlist
+POST {{baseUrl}}/playlists
+Content-Type: application/json
+
+{
+  "nome": "Foco no Trabalho",
+  "descricao": "Musicas para manter a concentracao"
+}
+
+### 7. Listar playlists
+GET {{baseUrl}}/playlists
+
+### 8. Adicionar musica diretamente a uma playlist
+POST {{baseUrl}}/playlists/1/musicas/2
+
+### 9. Listar apenas os IDs das musicas da playlist
+GET {{baseUrl}}/playlists/1/musicas
+
+### 10. Remover musica da playlist
+DELETE {{baseUrl}}/playlists/1/musicas/2
+
+### 11. Criar reproducao pelo endpoint oficial
+POST {{baseUrl}}/reproducao
+Content-Type: application/json
+
+{
+  "playlistid": 1
+}
+
+### 12. Listar reproducoes da playlist
+GET {{baseUrl}}/reproducao/1
+
+### 13. Consultar total de reproducoes
+GET {{baseUrl}}/reproducao/total/1
+
+### 14. Orquestrar inclusao por OpenFeign
+POST {{baseUrl}}/api/adicionar/1/musicas/2
+
+### 15. Orquestrar execucao por OpenFeign e POST /statistic
+PUT {{baseUrl}}/api/executar/1
+
+### 16. Testar musica inexistente - deve retornar HTTP 404
+GET {{baseUrl}}/musicas/999
+
+### 17. Testar playlist inexistente no orquestrador - HTTP 404
+PUT {{baseUrl}}/api/executar/999
